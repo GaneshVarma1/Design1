@@ -1,3 +1,5 @@
+import { ExperienceData } from '@/types/data';
+
 /**
  * EXPERIENCE DATA
  * ==============
@@ -20,7 +22,7 @@
  * TIP: Keep a backup of this file before making major changes!
  */
 
-export const experienceData = {
+export const experienceData: ExperienceData = {
   // PROFESSIONAL EXPERIENCE
   // ----------------------
   // This section contains your work history
@@ -30,13 +32,12 @@ export const experienceData = {
   // - location: Work location (city, country, or remote)
   // - duration: Time period (e.g., "2022 - Present")
   // - responsibilities: List of your main duties and achievements
-  experience: [
+  experiences: [
     {
-      role: "Full Stack Developer",
       company: "Tech Solutions Inc",
-      location: "Remote",
+      position: "Full Stack Developer",
       duration: "2022 - Present",
-      responsibilities: [
+      description: [
         "Developed and maintained multiple full-stack applications using React, Node.js, and MongoDB",
         "Implemented responsive designs and optimized front-end performance",
         "Built RESTful APIs and integrated various third-party services",
@@ -44,11 +45,10 @@ export const experienceData = {
       ]
     },
     {
-      role: "Frontend Developer",
       company: "Digital Innovations",
-      location: "Remote",
+      position: "Frontend Developer",
       duration: "2021 - 2022",
-      responsibilities: [
+      description: [
         "Built responsive web applications using React and TypeScript",
         "Implemented state management using Redux and Context API",
         "Worked with REST APIs and integrated various services",
@@ -56,11 +56,10 @@ export const experienceData = {
       ]
     },
     {
-      role: "Junior Developer",
       company: "WebTech Solutions",
-      location: "Remote",
+      position: "Junior Developer",
       duration: "2020 - 2021",
-      responsibilities: [
+      description: [
         "Assisted in developing and maintaining web applications",
         "Implemented UI components and features using React",
         "Worked with version control systems and followed best practices",

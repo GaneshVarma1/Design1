@@ -1,3 +1,5 @@
+import { HeroData } from '@/types/data';
+
 /**
  * HERO SECTION DATA
  * ================
@@ -14,7 +16,7 @@
  */
 
 // Export the data so it can be used in other files
-export const heroData = {
+export const heroData: HeroData = {
   // The greeting message that appears at the top of the hero section
   // You can personalize this to match your style
   greeting: "Hi, This is Sri. Great to see you here!",

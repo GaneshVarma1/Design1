@@ -1,3 +1,5 @@
+import { EducationData } from '@/types/data';
+
 /**
  * EDUCATION AND CERTIFICATIONS DATA
  * ===============================
@@ -19,7 +21,7 @@
  * TIP: Keep a backup of this file before making major changes!
  */
 
-export const educationData = {
+export const educationData: EducationData = {
   // EDUCATION
   // --------
   // This section contains your educational background
@@ -31,15 +33,10 @@ export const educationData = {
   // - achievements: List of academic achievements, relevant coursework, or activities
   education: [
     {
-      type: "degree",
+      institution: "University of Technology",
       degree: "Bachelor's degree in Computer Science",
-      school: "University of Technology",
       duration: "2016 - 2020",
-      achievements: [
-        "Graduated with honors",
-        "Completed coursework in Web Development, Database Systems, and Software Engineering",
-        "Participated in various coding competitions and hackathons"
-      ]
+      description: "Graduated with honors. Completed coursework in Web Development, Database Systems, and Software Engineering. Participated in various coding competitions and hackathons."
     }
   ],
 

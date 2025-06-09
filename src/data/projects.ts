@@ -1,3 +1,5 @@
+import { ProjectsData } from '@/types/data';
+
 /**
  * PROJECTS DATA
  * ============
@@ -20,7 +22,7 @@
  * TIP: Keep a backup of this file before making major changes!
  */
 
-export const projectsData = {
+export const projectsData: ProjectsData = {
   // PROJECTS LIST
   // ------------
   // Each project should include:
