@@ -7,30 +7,7 @@ import { cn } from "@/lib/utils";
 import { aboutData } from "@/data/about";
 import { experienceData } from "@/data/experience";
 import { educationData } from "@/data/education";
-
-interface BentoGridItemProps {
-  name: string;
-  icon: string;
-  className?: string;
-}
-
-const BentoGridItem = ({ name, icon, className }: BentoGridItemProps) => {
-  return (
-    <div
-      className={cn(
-        "group relative flex flex-col items-center justify-center overflow-hidden rounded-lg border bg-background/50 p-4 backdrop-blur transition-all hover:bg-background/60",
-        className
-      )}
-    >
-      <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-lg bg-background/50 backdrop-blur">
-        <img src={icon} alt={name} className="h-8 w-8" />
-      </div>
-      <div className="mt-2 text-center">
-        <p className="text-sm font-medium">{name}</p>
-      </div>
-    </div>
-  );
-};
+import { Skill, Experience, Education } from "@/types/data";
 
 const About = () => {
   const [activeSection, setActiveSection] = useState<
@@ -60,67 +37,39 @@ const About = () => {
           className="mb-16 text-center"
         >
           <div className="mx-auto max-w-3xl space-y-4">
-            {aboutData.introduction.paragraphs.map((paragraph, index) => (
-              <p key={index} className="text-lg leading-relaxed text-muted-foreground">
-                {paragraph}
-              </p>
-            ))}
+            <div className="text-center mb-8">
+              <h3 className="text-2xl font-bold mb-2">{aboutData.name}</h3>
+              <p className="text-xl text-muted-foreground">{aboutData.title}</p>
+            </div>
+            
+            <p className="text-lg leading-relaxed text-muted-foreground">
+              {aboutData.description}
+            </p>
 
-            {/* Key Achievements Section */}
+            {/* Skills Section */}
             <div className="mt-8">
-              <div className="grid gap-6 md:grid-cols-2">
-                <div className="rounded-lg bg-background/50 p-6 backdrop-blur">
-                  <h4 className="mb-4 text-xl font-semibold">
-                    Recent Highlights
-                  </h4>
-                  <ul className="space-y-2 text-left text-muted-foreground">
-                    {aboutData.highlights.recent.map((highlight, index) => (
-                      <li key={index} className="flex items-start">
-                        <span className="mr-2">•</span>
-                        <span>{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="rounded-lg bg-background/50 p-6 backdrop-blur">
-                  <h4 className="mb-4 text-xl font-semibold">
-                    Academic Achievements
-                  </h4>
-                  <ul className="space-y-2 text-left text-muted-foreground">
-                    {aboutData.highlights.academic.map((achievement, index) => (
-                      <li key={index} className="flex items-start">
-                        <span className="mr-2">•</span>
-                        <span>{achievement}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <h4 className="mb-4 text-xl font-semibold text-center">Skills</h4>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {aboutData.skills.map((skill: Skill, index: number) => (
+                  <div key={index} className="rounded-lg bg-background/50 p-4 backdrop-blur">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="font-medium">{skill.name}</span>
+                      <span className="text-sm text-muted-foreground">{skill.level}%</span>
+                    </div>
+                    <div className="w-full bg-muted rounded-full h-2">
+                      <div 
+                        className="bg-primary h-2 rounded-full" 
+                        style={{ width: `${skill.level}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-
-            {/* Collaboration Statement */}
-            <p className="mt-6 text-lg leading-relaxed text-muted-foreground font-semibold">
-              {aboutData.introduction.collaboration}
-            </p>
           </div>
         </motion.div>
 
-        {/* Skills Section */}
-        <div className="mb-20">
-          <h3 className="mb-8 text-center text-2xl font-semibold">Skills</h3>
-          <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
-            {aboutData.skills.map((skill) => (
-              <BentoGridItem
-                key={skill.name}
-                name={skill.name}
-                icon={skill.icon}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* New Toggle Section */}
+        {/* Toggle Section */}
         <div className="mb-8 flex flex-col items-center">
           <div className="inline-flex rounded-lg border p-1 bg-background/50 backdrop-blur">
             <Button
@@ -140,7 +89,7 @@ const About = () => {
           </div>
         </div>
 
-        {/* Updated Experience & Education Section */}
+        {/* Experience & Education Section */}
         <motion.div
           key={activeSection}
           initial={{ opacity: 0, y: 20 }}
@@ -151,13 +100,13 @@ const About = () => {
         >
           <div className="space-y-4">
             {activeSection === "experience" ? (
-              experienceData.experience.map((item, index) => (
+              experienceData.experiences.map((item: Experience, index: number) => (
                 <Card
                   key={index}
                   className="border-none bg-background/50 dark:bg-background/20 shadow-xl backdrop-blur transition-all hover:bg-background/60"
                 >
                   <CardHeader>
-                    <CardTitle className="text-xl">{item.role}</CardTitle>
+                    <CardTitle className="text-xl">{item.position}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="font-medium">{item.company}</p>
@@ -165,9 +114,9 @@ const About = () => {
                       {item.duration}
                     </p>
                     <div className="mt-4 space-y-2">
-                      {item.responsibilities.map((responsibility, i) => (
+                      {item.description.map((desc: string, i: number) => (
                         <p key={i} className="text-sm text-muted-foreground">
-                          • {responsibility}
+                          • {desc}
                         </p>
                       ))}
                     </div>
@@ -178,7 +127,7 @@ const About = () => {
               <>
                 <h3 className="mb-6 text-xl font-semibold">Education</h3>
                 <div className="space-y-4">
-                  {educationData.education.map((item, index) => (
+                  {educationData.education.map((item: Education, index: number) => (
                     <Card
                       key={index}
                       className="border-none bg-background/50 dark:bg-background/20 shadow-xl backdrop-blur transition-all hover:bg-background/60"
@@ -187,47 +136,15 @@ const About = () => {
                         <CardTitle className="text-xl">{item.degree}</CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <p className="font-medium">{item.school}</p>
+                        <p className="font-medium">{item.institution}</p>
                         <p className="text-sm text-muted-foreground">
                           {item.duration}
                         </p>
-                        {item.achievements.length > 0 && (
-                          <div className="mt-4 space-y-2">
-                            {item.achievements.map((achievement, i) => (
-                              <p
-                                key={i}
-                                className="text-sm text-muted-foreground"
-                              >
-                                • {achievement}
-                              </p>
-                            ))}
-                          </div>
-                        )}
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-
-                <h3 className="mb-6 mt-8 text-xl font-semibold">
-                  Certifications
-                </h3>
-                <div className="space-y-4">
-                  {educationData.certifications.map((cert, index) => (
-                    <Card
-                      key={index}
-                      className="border-none bg-background/50 dark:bg-background/20 shadow-xl backdrop-blur transition-all hover:bg-background/60"
-                    >
-                      <CardHeader>
-                        <CardTitle className="text-xl">{cert.name}</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="font-medium">{cert.organization}</p>
-                        <p className="text-sm text-muted-foreground">
-                          {cert.issuedDate}
-                        </p>
-                        <p className="mt-2 text-sm text-muted-foreground">
-                          {cert.description}
-                        </p>
+                        <div className="mt-4 space-y-2">
+                          <p className="text-sm text-muted-foreground">
+                            {item.description}
+                          </p>
+                        </div>
                       </CardContent>
                     </Card>
                   ))}
